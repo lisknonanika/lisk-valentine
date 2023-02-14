@@ -46,15 +46,14 @@ body {
     padding: 0;
     width: 100vw;
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
     background-color: #fff;
 }
 
 #contents {
     position: relative;
+    top: 0;
+    left: 0;
     background: linear-gradient(to top right, #7071d4, 15%, #f5a6a6, 20%, #3f419b);
 }
 
