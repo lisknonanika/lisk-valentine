@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+@font-face {
+	font-family: 'Anton';
+	src: url(./font/Anton-Regular.ttf);
+}
+
+@keyframes updown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes leftright {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes rightleft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+#contents {
+    position: relative;
+    width: 300px;
+    height: 600px;
+    background: linear-gradient(to top right, #7071d4, 15%, #f5a6a6, 20%, #3f419b);
+}
+
+.box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 600px;
+}
+
+.anime {
+    animation-name: updown;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+.fadebox {
+    width: 300px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: Anton;
+    font-size: 3.5rem;
+}
+
+.fadeIn1 {
+    animation-name: leftright;
+    animation-delay: 0.5s;
+    animation-duration: 0.1s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    text-align: center;
+}
+
+.fadeIn2 {
+    animation-name: rightleft;
+    animation-delay: 1.5s;
+    animation-duration: 0.1s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    text-align: center;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>Lisk-Happy Valentine</title>
+    <link rel="stylesheet" type="text/css" href="./main.css">
+</head>
+
+<body>
+    <div id="contents"></div>
+    <script>
+        const body = document.querySelector("#contents");
+        const logoPosition = [];
+        const maxPosition = [];
+        let isMaxTime = false;
+
+        for (let i = 0; i <= (300 - 30); i += 10) logoPosition.push(i);
+        for (let i = 0; i <= (300 - 50); i += 10) maxPosition.push(i);
+
+        const maxTime = () => {
+            const pa = document.createElement('div');
+            pa.classList.add("fadebox");
+
+            const div1 = document.createElement('div');
+            div1.classList.add("fadeIn1");
+            div1.textContent = "SUPER";
+            const div2 = document.createElement('div');
+            div2.classList.add("fadeIn2");
+            div2.textContent = "MAX TIME !!";
+            pa.appendChild(div1);
+            pa.appendChild(div2);
+            body.appendChild(pa);
+            setTimeout(() => { body.removeChild(pa); }, 5000);
+        }
+
+        const run = () => {
+            let counter = 0;
+            let elemList = [];
+            let intervalId = setInterval(() => {
+                // ロゴ設定
+                let positionList = [];
+                const ch = document.createElement('img');
+                const rate = isMaxTime ? 1 : 50;
+                if (Math.floor(Math.random() * rate) + 1 === rate) {
+                    ch.src = (`./img/max.jpg`);
+                    ch.style.borderRadius = "50%";
+                    ch.style.width = "50px";
+                    ch.style.zIndex = 9999;
+                    ch.onclick = () => {
+                        if (!isMaxTime) {
+                            clearInterval(intervalId);
+                            elemList.forEach((data) => { try { body.removeChild(data.elem); } catch (err) { } });
+                            isMaxTime = true;
+                            maxTime();
+                            run();
+                            return;
+                        }
+                    };
+                    positionList = maxPosition;
+                } else {
+                    ch.src = (`./img/logo${Math.floor(Math.random() * 4) + 1}.svg`);
+                    ch.style.width = "30px";
+                    ch.style.zIndex = 1;
+                    positionList = logoPosition;
+                }
+
+                // box設定
+                const duration = Math.floor(Math.random() * 5) + 2;
+                const left = positionList[Math.floor(Math.random() * positionList.length)];  // 横位置
+                const pa = document.createElement('div');
+                pa.classList.add("box");
+                pa.classList.add("anime");
+                pa.style.left = `${left}px`;
+                pa.style.animationDuration = `${duration}s`;
+
+                // 表示
+                pa.appendChild(ch);
+                body.appendChild(pa);
+
+                // DOMが増えすぎないように適宜削除する
+                elemList.push({ elem: pa, duration: duration * 1000, start: new Date().getTime() });
+                elemList.forEach((data) => {
+                    if (new Date().getTime() - data.start > data.duration) {
+                        try { body.removeChild(data.elem); } catch (err) { }
+                    }
+                });
+                elemList = elemList.filter((data) => { return new Date().getTime() - data.start < data.duration + 1000; });
+
+                // MAX Time
+                if (isMaxTime) {
+                    if (counter === 50) {
+                        clearInterval(intervalId);
+                        isMaxTime = false;
+                        run();
+                    } else {
+                        counter += 1;
+                    }
+                }
+            }, isMaxTime ? 100 : 350);
+        }
+        run();
+    </script>
+</body>
+
+</html>
