@@ -11,24 +11,26 @@
 <body>
     <div id="contents"></div>
     <script>
+        const width = document.documentElement.clientWidth;
+        const height = document.documentElement.clientHeight;
         const body = document.querySelector("#contents");
-        const logoPosition = [];
-        const maxPosition = [];
-        let isMaxTime = false;
-
-        for (let i = 0; i <= (300 - 45); i += 15) logoPosition.push(i);
-        for (let i = 0; i <= (300 - 75); i += 15) maxPosition.push(i);
+        body.style.width = `${width}px`;
+        body.style.height = `${height}px`;
 
         const maxTime = () => {
             const pa = document.createElement('div');
             pa.classList.add("fadebox");
+            pa.style.width = body.style.width;
+            pa.style.height = body.style.height;
 
             const div1 = document.createElement('div');
             div1.classList.add("fadeIn1");
             div1.textContent = "SUPER";
+
             const div2 = document.createElement('div');
             div2.classList.add("fadeIn2");
             div2.textContent = "MAX TIME !!";
+
             pa.appendChild(div1);
             pa.appendChild(div2);
             body.appendChild(pa);
@@ -41,11 +43,16 @@
         const happyValentine = () => {
             const pa = document.createElement('div');
             pa.classList.add("heartbox");
+            pa.style.width = body.style.width;
+            pa.style.height = body.style.height;
+
             const div1 = document.createElement('div');
             div1.classList.add("heart");
+
             const div2 = document.createElement('div');
             div2.textContent = "Happy\r\nValentine"
             div2.style.textAlign = "center";
+
             pa.appendChild(div1);
             pa.appendChild(div2);
             body.appendChild(pa);
@@ -55,14 +62,15 @@
             }, 7000);
         }
 
+        let isMaxTime = false;
         const run = () => {
+            let left = 0;
             let counter = 0;
             let elemList = [];
             let intervalId = setInterval(() => {
                 // ロゴ設定
-                let positionList = [];
                 const ch = document.createElement('img');
-                const rate = isMaxTime ? 1 : 35;
+                const rate = isMaxTime ? 1 : 30;
                 if (Math.floor(Math.random() * rate) + 1 === rate) {
                     ch.src = (`./img/max.jpg`);
                     ch.style.borderRadius = "50%";
@@ -77,22 +85,22 @@
                             return;
                         };
                     }
-                    positionList = maxPosition;
+                    left = Math.floor(Math.random() * (width - 75));
                 } else {
                     ch.src = (`./img/logo${Math.floor(Math.random() * 4) + 1}.svg`);
                     ch.style.width = "45px";
                     ch.style.zIndex = 1;
-                    positionList = logoPosition;
+                    left = Math.floor(Math.random() * (width - 45));
                 }
 
                 // box設定
                 const duration = Math.floor(Math.random() * 5) + 2;
-                const left = positionList[Math.floor(Math.random() * positionList.length)];  // 横位置
                 const pa = document.createElement('div');
                 pa.classList.add("box");
                 pa.classList.add("anime");
                 pa.style.left = `${left}px`;
                 pa.style.animationDuration = `${duration}s`;
+                pa.style.height = body.style.height;
 
                 // 表示
                 pa.appendChild(ch);
