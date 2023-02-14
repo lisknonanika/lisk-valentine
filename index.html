@@ -17,8 +17,8 @@
         const maxPosition = [];
         let isMaxTime = false;
 
-        for (let i = 0; i <= (300 - 30); i += 10) logoPosition.push(i);
-        for (let i = 0; i <= (300 - 50); i += 10) maxPosition.push(i);
+        for (let i = 0; i <= (300 - 45); i += 15) logoPosition.push(i);
+        for (let i = 0; i <= (300 - 75); i += 15) maxPosition.push(i);
 
         const maxTime = () => {
             const pa = document.createElement('div');
@@ -33,7 +33,27 @@
             pa.appendChild(div1);
             pa.appendChild(div2);
             body.appendChild(pa);
-            setTimeout(() => { body.removeChild(pa); }, 5000);
+            setTimeout(() => {
+                body.removeChild(pa);
+                run();
+            }, 3000);
+        }
+
+        const happyValentine = () => {
+            const pa = document.createElement('div');
+            pa.classList.add("heartbox");
+            const div1 = document.createElement('div');
+            div1.classList.add("heart");
+            const div2 = document.createElement('div');
+            div2.textContent = "Happy\r\nValentine"
+            div2.style.textAlign = "center";
+            pa.appendChild(div1);
+            pa.appendChild(div2);
+            body.appendChild(pa);
+            setTimeout(() => {
+                body.removeChild(pa);
+                run();
+            }, 7000);
         }
 
         const run = () => {
@@ -43,26 +63,25 @@
                 // ロゴ設定
                 let positionList = [];
                 const ch = document.createElement('img');
-                const rate = isMaxTime ? 1 : 50;
+                const rate = isMaxTime ? 1 : 35;
                 if (Math.floor(Math.random() * rate) + 1 === rate) {
                     ch.src = (`./img/max.jpg`);
                     ch.style.borderRadius = "50%";
-                    ch.style.width = "50px";
+                    ch.style.width = "75px";
                     ch.style.zIndex = 9999;
-                    ch.onclick = () => {
-                        if (!isMaxTime) {
+                    if (!isMaxTime) {
+                        ch.onclick = () => {
                             clearInterval(intervalId);
                             elemList.forEach((data) => { try { body.removeChild(data.elem); } catch (err) { } });
                             isMaxTime = true;
                             maxTime();
-                            run();
                             return;
-                        }
-                    };
+                        };
+                    }
                     positionList = maxPosition;
                 } else {
                     ch.src = (`./img/logo${Math.floor(Math.random() * 4) + 1}.svg`);
-                    ch.style.width = "30px";
+                    ch.style.width = "45px";
                     ch.style.zIndex = 1;
                     positionList = logoPosition;
                 }
@@ -94,7 +113,7 @@
                     if (counter === 50) {
                         clearInterval(intervalId);
                         isMaxTime = false;
-                        run();
+                        happyValentine();
                     } else {
                         counter += 1;
                     }
